@@ -1,65 +1,113 @@
-import Image from "next/image";
+const sampleEntry = `## 22:14\n\n오늘 [[은둥이]]랑 병원 다녀왔다. 생각보다 잘 버텨줘서 고마웠다.\n근데 [[회사]] 일은 계속 밀려서 불안하다. [[AI agent OS]]는 다시 정리해보고 싶다.\n\n### Metadata\n\n- mood: mixed\n- energy: low\n- linked: [[은둥이]], [[회사]], [[AI agent OS]]\n\n### Raw\n\n오늘 은둥이랑 병원 다녀왔다. 생각보다 잘 버텨줘서 고마웠다. 근데 회사 일은 계속 밀려서 불안하다. AI agent OS는 다시 정리해보고 싶다.`;
+
+const features = [
+  "웹/앱/메신저에서 빠르게 일기 capture",
+  "Obsidian Vault에 Markdown으로 저장",
+  "사용자 사전 기반 자동 wikilink",
+  "Raw 원문 보존 + OKF 호환 frontmatter",
+  "주간 회고와 LifeWiki 대시보드로 확장",
+];
+
+const roadmap = [
+  ["v0.1", "Capture", "Vault 설정, daily note append, 원문 보존"],
+  ["v0.2", "Link", "dictionary 기반 wikilink, people/topics note"],
+  ["v0.3", "Review", "weekly review, 링크/감정/태그 빈도"],
+  ["v0.4", "LifeWiki", "Home, People, Projects, Emotions index"],
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen overflow-hidden bg-[#f7f2e8] text-slate-900">
+      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:py-16">
+        <div className="flex flex-col justify-center">
+          <p className="mb-5 inline-flex w-fit rounded-full border border-purple-200 bg-white/70 px-4 py-2 text-sm font-semibold text-purple-800 shadow-sm">
+            Obsidian-native Life Wiki Builder
           </p>
+          <h1 className="text-5xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl">
+            아무 데서나 하루를 적으면,
+            <span className="block text-purple-800">내 Obsidian에 삶의 위키가 쌓입니다.</span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
+            Obsidian Diary Inbox는 짧은 일기를 로컬 Vault에 Markdown으로 저장하고, 사람·프로젝트·감정·아이디어를 wikilink로 연결해 다시 읽히는 기록 시스템을 만듭니다.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a className="rounded-2xl bg-slate-950 px-6 py-4 text-center font-bold text-white shadow-xl shadow-slate-900/20" href="#preview">
+              MVP 미리보기
+            </a>
+            <a className="rounded-2xl border border-slate-300 bg-white/70 px-6 py-4 text-center font-bold text-slate-900" href="#roadmap">
+              로드맵 보기
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div id="preview" className="rounded-[2rem] border border-white/70 bg-white/80 p-5 shadow-2xl shadow-purple-950/10 backdrop-blur">
+          <div className="rounded-3xl bg-slate-950 p-5 text-white">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <p className="text-sm text-purple-200">Quick Capture</p>
+                <h2 className="text-2xl font-bold">오늘의 기록</h2>
+              </div>
+              <span className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-bold text-emerald-200">AI optional</span>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-7 text-slate-200">
+              오늘 은둥이랑 병원 다녀왔다. 생각보다 잘 버텨줘서 고마웠다. 근데 회사 일은 계속 밀려서 불안하다. AI agent OS는 다시 정리해보고 싶다.
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+              <div className="rounded-2xl bg-white/10 p-3">
+                <p className="text-slate-400">Mood</p>
+                <p className="font-bold">mixed</p>
+              </div>
+              <div className="rounded-2xl bg-white/10 p-3">
+                <p className="text-slate-400">Energy</p>
+                <p className="font-bold">low</p>
+              </div>
+            </div>
+            <button className="mt-4 w-full rounded-2xl bg-purple-500 px-5 py-4 font-black text-white" type="button">
+              Save to Obsidian
+            </button>
+          </div>
+          <pre className="mt-5 max-h-[360px] overflow-auto rounded-3xl bg-[#1f2933] p-5 text-xs leading-6 text-emerald-100">
+            {sampleEntry}
+          </pre>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-16 lg:px-10">
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="rounded-3xl bg-white/80 p-6 shadow-lg shadow-slate-900/5 md:col-span-1">
+            <h2 className="text-2xl font-black">제품 원칙</h2>
+            <p className="mt-3 leading-7 text-slate-700">
+              AI가 내 삶을 대신 기억하는 게 아니라, 내 기록이 내 손 안에서 오래 살아남고 연결되게 합니다.
+            </p>
+          </div>
+          <div className="rounded-3xl bg-white/80 p-6 shadow-lg shadow-slate-900/5 md:col-span-2">
+            <h2 className="text-2xl font-black">MVP 기능</h2>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+              {features.map((feature) => (
+                <li key={feature} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-700">
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" className="bg-slate-950 px-6 py-16 text-white lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-sm font-bold uppercase tracking-[0.3em] text-purple-300">Roadmap</p>
+          <h2 className="mt-3 text-4xl font-black">일기 앱이 아니라 LifeWiki ingestion layer로 시작합니다.</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-4">
+            {roadmap.map(([version, title, description]) => (
+              <article key={version} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <p className="text-sm font-bold text-purple-200">{version}</p>
+                <h3 className="mt-2 text-xl font-black">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-300">{description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
